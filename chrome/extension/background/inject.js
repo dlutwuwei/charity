@@ -36,7 +36,7 @@ function loadScript(name, tabId, cb) {
   }
 }
 
-const arrowURLs = ['^http://219.232.200.39/uamsso'];
+const arrowURLs = ['^http://219.232.200.39/uamsso', '^http://219.232.200.42/yjrc'];
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   if (changeInfo.status !== 'loading' || !tab.url.match(arrowURLs.join('|'))) return;

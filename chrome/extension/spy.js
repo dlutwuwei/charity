@@ -1,7 +1,6 @@
 /**
  * 工作居住证网站补丁代码
  */
-
 window.GetObjVal = function GetObjVal(objName, formName) {
   let val = '';
   let ObjID = 0;
@@ -44,10 +43,10 @@ window.changeSub = function changeSub(flag) {
   }
 };
 
-window,
-  (toMod = function toMod() {
-    window.location = '/yjrc/person/ApplyCardAction.do?formAction=cApply';
-  });
+window.toMod = function toMod() {
+  window.location = '/yjrc/person/ApplyCardAction.do?formAction=cApply';
+};
+
 window.back = function back() {
   window.location = '/yjrc/person/ApplyListAction.do?formAction=in&opType=cApply';
 };
@@ -72,25 +71,52 @@ window.queryWork = function queryWork(id) {
 const linktag = document.querySelector(
   'body > table:nth-child(5) > tbody > tr:nth-child(1) > td:nth-child(1) > table:nth-child(4) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td:nth-child(2) > div'
 );
-linktag.querySelector('a').style.pointerEvents = 'none';
 
-linktag.addEventListener('click', () => {
-  const form = document.createElement('form');
-  form.name = 'sso';
-  form.method = 'post';
-  form.action = '/uamsso/SSOSecService';
-  const data = [
-    { name: 'sid', value: 'null' },
-    { name: 'LinkID', value: '666' },
-    { name: 'LinkType', value: 'online' }
-  ];
-  data.forEach((d, idx) => {
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = d.name;
-    input.value = d.value;
-    form.appendChild(input);
+if (linktag) {
+  linktag.querySelector('a').style.pointerEvents = 'none';
+
+  linktag.addEventListener('click', () => {
+    const form = document.createElement('form');
+    form.name = 'sso';
+    form.method = 'post';
+    form.action = '/uamsso/SSOSecService';
+    const data = [
+      { name: 'sid', value: 'null' },
+      { name: 'LinkID', value: '666' },
+      { name: 'LinkType', value: 'online' }
+    ];
+    data.forEach((d, idx) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = d.name;
+      input.value = d.value;
+      form.appendChild(input);
+    });
+    document.body.appendChild(form);
+    form.submit();
   });
-  document.body.appendChild(form);
-  form.submit();
-});
+}
+
+const table = document.querySelector(
+  'body > table:nth-child(2) > tbody > tr > td:nth-child(2) > table > tbody > tr:nth-child(2) > td > table > tbody'
+);
+if (table) {
+  table.style.width = '285px';
+  table.style.display = 'block';
+  table.style.marginLeft = '10px';
+}
+
+var link = document.createElement("link");
+link.rel = "stylesheet";
+link.type = "text/css";
+link.href = "https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css";
+var head = document.getElementsByTagName("head")[0];
+head.appendChild(link);
+
+const flatpickr = require("flatpickr");
+window.fPopCalendar = function fPopCalendar(popCtrl, dateCtrl, strDate) {
+  flatpickr(popCtrl, {
+    enableTime: true,
+    dateFormat: 'Y-m-d'
+  });
+};
