@@ -109,14 +109,27 @@ if (table) {
 var link = document.createElement("link");
 link.rel = "stylesheet";
 link.type = "text/css";
-link.href = "https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css";
+link.href = "https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/css/datepicker.min.css";
 var head = document.getElementsByTagName("head")[0];
 head.appendChild(link);
+window.jQuery = window.$ = require("jquery");
+$('input[name$=Date]').addClass('datepicker-here');
+require('air-datepicker/dist/js/datepicker.js');
 
-const flatpickr = require("flatpickr");
+$.fn.datepicker.language['en'] = {
+  days: ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'],
+  daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+  daysMin: ['一', '二', '三', '四', '五', '六', '日'],
+  months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一', '十二'],
+  monthsShort: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一', '十二'],
+  today: 'Today',
+  clear: 'Clear',
+  dateFormat: 'yyyy-mm-dd',
+  timeFormat: 'hh:ii aa',
+  firstDay: 0
+};
 window.fPopCalendar = function fPopCalendar(popCtrl, dateCtrl, strDate) {
-  flatpickr(popCtrl, {
-    enableTime: true,
-    dateFormat: 'Y-m-d'
+  $(popCtrl).datepicker({
+    language: 'en'
   });
 };
